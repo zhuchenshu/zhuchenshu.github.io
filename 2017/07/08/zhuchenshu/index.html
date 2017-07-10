@@ -3,15 +3,18 @@
 <head>
   <meta charset="utf-8">
   
-  <title>如何创建个人博客 | chenshu</title>
+  <title>git的部分常见命令 | chenshu</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="article">
-<meta property="og:title" content="如何创建个人博客">
+  <meta name="description" content="一旦远程主机的版本库有了更新(Git术语叫做commit)，需要将这些更新取回本地，这时就要用到git fetch命令。$ git fetch &amp;lt;远程主机名&amp;gt;上面命令将某个远程主机的更新，全部取回本地。默认情况下，git fetch取回所有分支(branch)的更新。如果只想取回特定分支的更新，可以指定分支名。$ git fetch &amp;lt;远程主机名&amp;gt; &amp;lt;分支名&amp;gt;可">
+<meta property="og:type" content="article">
+<meta property="og:title" content="git的部分常见命令">
 <meta property="og:url" content="http://zhuchenshu.github.io/2017/07/08/zhuchenshu/index.html">
 <meta property="og:site_name" content="chenshu">
-<meta property="og:updated_time" content="2017-07-09T12:33:15.373Z">
+<meta property="og:description" content="一旦远程主机的版本库有了更新(Git术语叫做commit)，需要将这些更新取回本地，这时就要用到git fetch命令。$ git fetch &amp;lt;远程主机名&amp;gt;上面命令将某个远程主机的更新，全部取回本地。默认情况下，git fetch取回所有分支(branch)的更新。如果只想取回特定分支的更新，可以指定分支名。$ git fetch &amp;lt;远程主机名&amp;gt; &amp;lt;分支名&amp;gt;可">
+<meta property="og:updated_time" content="2017-07-10T02:29:46.509Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="如何创建个人博客">
+<meta name="twitter:title" content="git的部分常见命令">
+<meta name="twitter:description" content="一旦远程主机的版本库有了更新(Git术语叫做commit)，需要将这些更新取回本地，这时就要用到git fetch命令。$ git fetch &amp;lt;远程主机名&amp;gt;上面命令将某个远程主机的更新，全部取回本地。默认情况下，git fetch取回所有分支(branch)的更新。如果只想取回特定分支的更新，可以指定分支名。$ git fetch &amp;lt;远程主机名&amp;gt; &amp;lt;分支名&amp;gt;可">
   
     <link rel="alternate" href="/atom.xml" title="chenshu" type="application/atom+xml">
   
@@ -38,7 +41,7 @@
         
           <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://zhuchenshu.github.io"></form>
@@ -78,7 +81,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      如何创建个人博客
+      git的部分常见命令
     </h1>
   
 
@@ -88,11 +91,12 @@
       
         <!-- Table of Contents -->
         
-        
+        <p>一旦远程主机的版本库有了更新(Git术语叫做commit)，需要将这些更新取回本地，这时就要用到git fetch命令。<br>$ git fetch &lt;远程主机名&gt;<br>上面命令将某个远程主机的更新，全部取回本地。<br>默认情况下，git fetch取回所有分支(branch)的更新。如果只想取回特定分支的更新，可以指定分支名。<br>$ git fetch &lt;远程主机名&gt; &lt;分支名&gt;<br><br>可以使用git merge命令或者git rebase命令，在本地分支上合并远程分支。<br>$ git merge origin/master<br># 或者<br>$ git rebase origin/master<br>上面命令表示在当前分支上，合并origin/master。<br>Git status可以用来查看仓库的状态<br><br>创建新分支：git branch branchName<br><br>　　切换到新分支：git checkout branchName<br>git add命令主要用于把我们要提交的文件的信息添加到索引库中<br>git是分为三部分，一部分是你自己的文件，另外一个是缓存区，最后一个是本地库。当你修改了自己的文件后，你会git add xx将修改保存到缓存区，然后再用commit推送修改到本地库中<br>git commit 是将本地修改的内容 提交的缓存 中 一般这么使用 git commit -m ‘XXXXX’<br>git pull命令的作用是，取回远程主机某个分支的更新，再与本地的指定分支合并。它的完整格式稍稍有点复杂。<br>git push命令用于将本地分支的更新，推送到远程主机。它的格式与git pull命令相仿。<br></p>
+
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://zhuchenshu.github.io/2017/07/08/zhuchenshu/" data-id="cj4uz9vyn0000q8v4454kdmum" class="article-share-link">Share</a>
+      <a data-url="http://zhuchenshu.github.io/2017/07/08/zhuchenshu/" data-id="cj4uz9vyn0000q8v4454kdmum" class="article-share-link">分享</a>
       
       
       
@@ -102,7 +106,7 @@
     
  <script src="/jquery/jquery.min.js"></script>
   <div id="random_posts">
-    <h2>Recommended Posts</h2>
+    <h2>推荐文章</h2>
     <div class="random_posts_ul">
       <script>
           var random_count =4
@@ -146,7 +150,7 @@
   
   
     <a href="/2017/07/08/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
+      <strong class="article-nav-caption">下一篇</strong>
       <div class="article-nav-title">Hello World</div>
     </a>
   
@@ -185,12 +189,12 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title recent-posts">Recent Posts</h3>
+    <h3 class="widget-title recent-posts">最新文章</h3>
     <div class="widget">
       <ul>
         
           <li>
-            <a href="/2017/07/08/zhuchenshu/">如何创建个人博客</a>
+            <a href="/2017/07/08/zhuchenshu/">git的部分常见命令</a>
           </li>
         
           <li>
@@ -219,10 +223,10 @@
   <div class="outer">
     <div id="footer-left">
       &copy; 2014 - 2017 zhuchenshu&nbsp;|&nbsp;
-      Theme by <a href="https://github.com/giscafer/hexo-theme-cafe/" target="_blank">Cafe</a>
+      主题 <a href="https://github.com/giscafer/hexo-theme-cafe/" target="_blank">Cafe</a>
     </div>
      <div id="footer-right">
-      Contact&nbsp;|&nbsp;youemail@outlook.com
+      联系方式&nbsp;|&nbsp;youemail@outlook.com
     </div>
   </div>
 </footer>
