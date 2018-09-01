@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>读Spring实战有感 | 晨澍的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="spring目标致力于全面的简化java开发，采取了4中关键策略，简单做一下介绍">
+<meta name="keywords" content="spring">
+<meta property="og:type" content="article">
+<meta property="og:title" content="读Spring实战有感">
+<meta property="og:url" content="http://zhuchenshu.github.io/2018/06/02/读Spring实战有感/index.html">
+<meta property="og:site_name" content="晨澍的博客">
+<meta property="og:description" content="spring目标致力于全面的简化java开发，采取了4中关键策略，简单做一下介绍">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-06-02T03:59:23.913Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="读Spring实战有感">
+<meta name="twitter:description" content="spring目标致力于全面的简化java开发，采取了4中关键策略，简单做一下介绍">
+  
+    <link rel="alternate" href="/atom.xml" title="晨澍的博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    
+    <div id="header-inner" class="inner">
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://zhuchenshu.github.io"></form>
+      </div>
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">首页</a>
+        
+          <a class="main-nav-link" href="/archives">归档</a>
+        
+          <a class="main-nav-link" href="/about">关于</a>
+        
+      </nav>
+      
+    </div>
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">晨澍的博客</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">成长的菜鸟</a>
+        </h2>
+      
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-读Spring实战有感" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/06/02/读Spring实战有感/" class="article-date">
+  <time datetime="2018-06-02T02:06:17.000Z" itemprop="datePublished">2018-06-02</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      读Spring实战有感
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- Table of Contents -->
+        
+        <p>spring目标致力于全面的简化java开发，采取了4中关键策略，简单做一下介绍<br><a id="more"></a></p>
+<!--more-->
+<h3 id="基于POJO的轻量级和最小侵入性编程；"><a href="#基于POJO的轻量级和最小侵入性编程；" class="headerlink" title="基于POJO的轻量级和最小侵入性编程；"></a>基于POJO的轻量级和最小侵入性编程；</h3><p>POJO全称是Plain Ordinary Java Object<br>Spring竭力避免因自身的API而弄乱你的应用代码。Spring不会强迫你 实现Spring规范的接口或继承Spring规范的类，相反，在基于Spring构 建的应用中，它的类通常没有任何痕迹表明你使用了Spring。最坏的 场景是，一个类或许会使用Spring注解，但它依旧是POJO。</p>
+<h3 id="通过依赖注入和面向接口实现松耦合；"><a href="#通过依赖注入和面向接口实现松耦合；" class="headerlink" title="通过依赖注入和面向接口实现松耦合；"></a>通过依赖注入和面向接口实现松耦合；</h3><p>如果一个对象只通过接口（而不是具体实现或初始化过 程）来表明依赖关系，那么这种依赖就能够在对象本身毫不知情的情 况下，用不同的具体实现进行替换。</p>
+<h3 id="基于切面和惯例进行声明式编程；"><a href="#基于切面和惯例进行声明式编程；" class="headerlink" title="基于切面和惯例进行声明式编程；"></a>基于切面和惯例进行声明式编程；</h3><p>面向切面编程 （aspect-oriented programming，AOP）允许你把遍布应用各处的功能 分离出来形成可重用的组件。 面向切面编程往往被定义为促使软件系统实现关注点的分离一项技 术。系统由许多不同的组件组成，每一个组件各负责一块特定功能。 除了实现自身核心的功能之外，这些组件还经常承担着额外的职责。 诸如日志、事务管理和安全这样的系统服务经常融入到自身具有核心 业务逻辑的组件中去，这些系统服务通常被称为横切关注点，因为它们会跨越系统的多个组件。 如果将这些关注点分散到多个组件中去，你的代码将会带来双重的复杂性。</p>
+<h3 id="通过切面和模板减少样板式代码"><a href="#通过切面和模板减少样板式代码" class="headerlink" title="通过切面和模板减少样板式代码"></a>通过切面和模板减少样板式代码</h3><p>Spring旨在通过模板封装来消除样板式代码<br>样板式代码的一个常见范例是使用JDBC访问数据库查询数据</p>
+<p>装配Bean</p>
+<p>Spring其实就是一个大型的工厂，而Spring容器中的Bean就是该工厂的产品.</p>
+<p>在Spring中，对象无需自己查找或创建与其所关联的其他对象。相 反，容器负责把需要相互协作的对象引用赋予各个对象。<br>创建应用对象之间协作关系的行为通常称为装配（wiring），这也是 依赖注入（DI）的本质。</p>
+<p>组件扫描（component scanning）：Spring会自动发现应用上下文 中所创建的bean。 @Component @ComponentScan注解启用了组件扫描<br>自动装配（autowiring）：Spring自动满足bean之间的依赖。    @Autowired实现自动装配</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://zhuchenshu.github.io/2018/06/02/读Spring实战有感/" data-id="cjijkqpgc000r1sv4y0aolcmt" class="article-share-link">分享</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/spring/">spring</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+ <script src="/jquery/jquery.min.js"></script>
+  <div id="random_posts">
+    <h2>推荐文章</h2>
+    <div class="random_posts_ul">
+      <script>
+          var random_count =4
+          var site = {BASE_URI:'/'};
+          function load_random_posts(obj) {
+              var arr=site.posts;
+              if (!obj) return;
+              // var count = $(obj).attr('data-count') || 6;
+              for (var i, tmp, n = arr.length; n; i = Math.floor(Math.random() * n), tmp = arr[--n], arr[n] = arr[i], arr[i] = tmp);
+              arr = arr.slice(0, random_count);
+              var html = '<ul>';
+            
+              for(var j=0;j<arr.length;j++){
+                var item=arr[j];
+                html += '<li><strong>' + 
+                item.date + ':&nbsp;&nbsp;<a href="' + (site.BASE_URI+item.uri) + '">' + 
+                (item.title || item.uri) + '</a></strong>';
+                if(item.excerpt){
+                  html +='<div class="post-excerpt">'+item.excerpt+'</div>';
+                }
+                html +='</li>';
+                
+              }
+              $(obj).html(html + '</ul>');
+          }
+          $('.random_posts_ul').each(function () {
+              var c = this;
+              if (!site.posts || !site.posts.length){
+                  $.getJSON(site.BASE_URI + 'js/posts.js',function(json){site.posts = json;load_random_posts(c)});
+              } 
+               else{
+                load_random_posts(c);
+              }
+          });
+      </script>
+    </div>
+  </div>
+
+    
+<nav id="article-nav">
+  
+    <a href="/2018/06/09/java异常与日志/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">
+        
+          java异常与日志
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/06/01/ui-view的使用总结/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">ui-view的使用总结</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+ 
+     
+  <div class="comments" id="comments">
+    
+     
+       
+      <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+    
+       
+      
+           <div id="uyan_frame"></div>
+    
+      
+  </div>
+ 
+  
+
+</section>
+           
+    <aside id="sidebar">
+  
+    
+
+  
+    
+    <div class="widget-wrap">
+    
+      <div class="widget" id="toc-widget-fixed">
+      
+        <strong class="toc-title">文章目录</strong>
+        <div class="toc-widget-list">
+              <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#基于POJO的轻量级和最小侵入性编程；"><span class="toc-number">1.</span> <span class="toc-text">基于POJO的轻量级和最小侵入性编程；</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#通过依赖注入和面向接口实现松耦合；"><span class="toc-number">2.</span> <span class="toc-text">通过依赖注入和面向接口实现松耦合；</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#基于切面和惯例进行声明式编程；"><span class="toc-number">3.</span> <span class="toc-text">基于切面和惯例进行声明式编程；</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#通过切面和模板减少样板式代码"><span class="toc-number">4.</span> <span class="toc-text">通过切面和模板减少样板式代码</span></a></li></ol>
+          </div>
+      </div>
+    </div>
+
+  
+    
+
+  
+    
+  
+    
+  
+    
+
+  
+    
+  
+    <!--微信公众号二维码-->
+
+
+  
+</aside>
+
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-left">
+      &copy; 2014 - 2018 zhuchenshu&nbsp;|&nbsp;
+      主题 <a href="https://github.com/giscafer/hexo-theme-cafe/" target="_blank">Cafe</a>
+    </div>
+     <div id="footer-right">
+      联系方式&nbsp;|&nbsp;1369359429@qq.com
+    </div>
+  </div>
+</footer>
+ <script src="/jquery/jquery.min.js"></script>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/archives" class="mobile-nav-link">归档</a>
+  
+    <a href="/about" class="mobile-nav-link">关于</a>
+  
+</nav>
+    <img class="back-to-top-btn" src="/images/fly-to-top.png"/>
+<script>
+// Elevator script included on the page, already.
+window.onload = function() {
+  var elevator = new Elevator({
+    selector:'.back-to-top-btn',
+    element: document.querySelector('.back-to-top-btn'),
+    duration: 1000 // milliseconds
+  });
+}
+</script>
+      
+
+
+
+
+
+ <script  type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=true"></script>
+
+
+
+<!-- author:forvoid begin -->
+<!-- author:forvoid begin -->
+
+<!-- author:forvoid end -->
+
+<!-- author:forvoid end -->
+
+
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      })
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      })
+    </script>
+    <script type="text/javascript" src="https://cdn.rawgit.com/mathjax/MathJax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+ <script src="/js/is.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+<script src="/js/elevator.js"></script>
+  </div>
+</body>
+</html>

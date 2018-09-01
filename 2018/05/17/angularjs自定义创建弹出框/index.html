@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>angularjs自定义创建弹出框 | 晨澍的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="最近写了一个弹出框的功能，期间主要遇到的问题是&amp;lt;ui-view&amp;gt;的使用，和css的定位，还有设置背景的透明，及解决背景透明的异常。在这里记录一下自己的问题解决的步骤。">
+<meta name="keywords" content="angularjs,css">
+<meta property="og:type" content="article">
+<meta property="og:title" content="angularjs自定义创建弹出框">
+<meta property="og:url" content="http://zhuchenshu.github.io/2018/05/17/angularjs自定义创建弹出框/index.html">
+<meta property="og:site_name" content="晨澍的博客">
+<meta property="og:description" content="最近写了一个弹出框的功能，期间主要遇到的问题是&amp;lt;ui-view&amp;gt;的使用，和css的定位，还有设置背景的透明，及解决背景透明的异常。在这里记录一下自己的问题解决的步骤。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/3872516-ab3b04ef4d66b9b4.gif?imageMogr2/auto-orient/strip">
+<meta property="og:updated_time" content="2018-05-18T09:38:53.684Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="angularjs自定义创建弹出框">
+<meta name="twitter:description" content="最近写了一个弹出框的功能，期间主要遇到的问题是&amp;lt;ui-view&amp;gt;的使用，和css的定位，还有设置背景的透明，及解决背景透明的异常。在这里记录一下自己的问题解决的步骤。">
+<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/3872516-ab3b04ef4d66b9b4.gif?imageMogr2/auto-orient/strip">
+  
+    <link rel="alternate" href="/atom.xml" title="晨澍的博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    
+    <div id="header-inner" class="inner">
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://zhuchenshu.github.io"></form>
+      </div>
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">首页</a>
+        
+          <a class="main-nav-link" href="/archives">归档</a>
+        
+          <a class="main-nav-link" href="/about">关于</a>
+        
+      </nav>
+      
+    </div>
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">晨澍的博客</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">成长的菜鸟</a>
+        </h2>
+      
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-angularjs自定义创建弹出框" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/05/17/angularjs自定义创建弹出框/" class="article-date">
+  <time datetime="2018-05-17T12:52:33.000Z" itemprop="datePublished">2018-05-17</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      angularjs自定义创建弹出框
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- Table of Contents -->
+        
+        <p>最近写了一个弹出框的功能，期间主要遇到的问题是<code>&lt;ui-view&gt;</code>的使用，和css的定位，还有设置背景的透明，及解决背景透明的异常。<br>在这里记录一下自己的问题解决的步骤。</p>
+<a id="more"></a>
+<!--more-->
+<p>先看一下实现的效果</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/3872516-ab3b04ef4d66b9b4.gif?imageMogr2/auto-orient/strip" alt="3.gif"></p>
+<h3 id="lt-ui-view-gt-的使用"><a href="#lt-ui-view-gt-的使用" class="headerlink" title="&lt;ui-view&gt;的使用"></a><code>&lt;ui-view&gt;</code>的使用</h3><p>在这里我们实现的功能是点击一个按钮，实现弹出框的功能。<br>方法是用<code>&lt;ui-view&gt;</code>包住触发按钮，然会将按钮触发的下一个路由的界面替换按钮实现弹出框效果。</p>
+<p>下面给出示例代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;ui-view&gt;</div><div class="line">    &lt;a class=&quot;btn btn-xs btn-outline btn-info&quot; ui-sref=&quot;personnel.personnelQualificationManage.viewTrainingRecord(&#123;data: object.trainingRecords&#125;)&quot;&gt;</div><div class="line">     &lt;i class=&quot;pe-7s-look&quot;&gt;&lt;/i&gt;&amp;nbsp;查看</div><div class="line">    &lt;/a&gt;</div><div class="line">&lt;/ui-view&gt;</div></pre></td></tr></table></figure></p>
+<h3 id="css的定位"><a href="#css的定位" class="headerlink" title="css的定位"></a>css的定位</h3><p>在这里介绍css的三种定位方式：relative，absolute，fixed</p>
+<pre><code>relative：相对于一个元素的正常位置来对其定位
+
+absolute：元素框从文档流完全删除，并相对于其包含块定位。
+
+fixed：元素框的表现类似于将 position 设置为 absolute，不过其包含块是视窗本身。
+</code></pre><p>在这里主要介绍一下absolute与fixed的区别：</p>
+<p>1、没有滚动条的情况下没有差异</p>
+<p>2、在有滚动条的情况下，fixed定位不会随滚动条移动而移动，而absolute则会随滚动条移动</p>
+<p>可以这么理解，fixed：固定在当前window不动， absolute：会随参照对象元素的高度和宽度变化而变化</p>
+<p>一般fixed用在遮盖层和固定在页面某个位置，如固定在顶端的菜单栏，又如弹出提示框居中显示</p>
+<p>下面给一下示例代码看一下区别：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">// 弹出框的效果,定位相对于浏览器窗口左280px; 上100px;</div><div class="line">.yunzhiModel &#123;</div><div class="line">    position:fixed;</div><div class="line">    left:280px; </div><div class="line">    top:100px;  </div><div class="line">    width: 800px; </div><div class="line">    background-color:#eee;</div><div class="line">    z-index: 10;</div><div class="line">&#125;</div><div class="line">// 背景的效果， 定位距离窗口上距离0px，左距离0px</div><div class="line">.yunzhiModelBack &#123;</div><div class="line">    z-index: 5; </div><div class="line">    position:fixed; </div><div class="line">    background:#000; </div><div class="line">    background: rgba(0, 0, 0, 0.4); </div><div class="line">    top:0px; </div><div class="line">    left: 0px; </div><div class="line">    height: 100%; </div><div class="line">    width: 100%;</div><div class="line"> &#125;</div></pre></td></tr></table></figure>
+<h3 id="设置背景的透明度"><a href="#设置背景的透明度" class="headerlink" title="设置背景的透明度"></a>设置背景的透明度</h3><p>目的：实现一个黑背景，并在背景上添加我们的显示弹窗。</p>
+<p>实现方法:利用z-index设置两个分层，下面的分层实现黑色透明背景。上面分层显示弹窗。</p>
+<p>设置透明度有两种方法：<br>1.opacity 属性<br>    使用方法：<code>opacity：0.5；</code>显示0.5的透明度 他的值可以为0-1<br>    子元素会继承父元素的透明效果。<br>2.RGBA(R,G,B,A)<br>R：红色值。正整数 | 百分数<br>G：绿色值。正整数 | 百分数<br>B：蓝色值。正整数 | 百分数<br>A：Alpha透明度。取值0~1之间。<br>    使用方法：<code>background: rgba(0,0,0,0.5)；</code>显示0.5的透明度 </p>
+<p>子元素不继承父元素的透明效果。</p>
+<h3 id="z-index的分层"><a href="#z-index的分层" class="headerlink" title="z-index的分层"></a>z-index的分层</h3><p>刚开始的时候我并没为有通过<code>z-index</code>分层，遇到了有些背景之后的内容透过背景的效果，这个问题是通过<code>z-index</code>设置分层来解决的。</p>
+<p>原因是当你不使用分层时，你的所有的fixed和absolute都在一个层上面，会产生我们的黑色背景无法将内容全部遮盖的效果。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://zhuchenshu.github.io/2018/05/17/angularjs自定义创建弹出框/" data-id="cjijkqpen00041sv4k47w5i1b" class="article-share-link">分享</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/angularjs/">angularjs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/css/">css</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+ <script src="/jquery/jquery.min.js"></script>
+  <div id="random_posts">
+    <h2>推荐文章</h2>
+    <div class="random_posts_ul">
+      <script>
+          var random_count =4
+          var site = {BASE_URI:'/'};
+          function load_random_posts(obj) {
+              var arr=site.posts;
+              if (!obj) return;
+              // var count = $(obj).attr('data-count') || 6;
+              for (var i, tmp, n = arr.length; n; i = Math.floor(Math.random() * n), tmp = arr[--n], arr[n] = arr[i], arr[i] = tmp);
+              arr = arr.slice(0, random_count);
+              var html = '<ul>';
+            
+              for(var j=0;j<arr.length;j++){
+                var item=arr[j];
+                html += '<li><strong>' + 
+                item.date + ':&nbsp;&nbsp;<a href="' + (site.BASE_URI+item.uri) + '">' + 
+                (item.title || item.uri) + '</a></strong>';
+                if(item.excerpt){
+                  html +='<div class="post-excerpt">'+item.excerpt+'</div>';
+                }
+                html +='</li>';
+                
+              }
+              $(obj).html(html + '</ul>');
+          }
+          $('.random_posts_ul').each(function () {
+              var c = this;
+              if (!site.posts || !site.posts.length){
+                  $.getJSON(site.BASE_URI + 'js/posts.js',function(json){site.posts = json;load_random_posts(c)});
+              } 
+               else{
+                load_random_posts(c);
+              }
+          });
+      </script>
+    </div>
+  </div>
+
+    
+<nav id="article-nav">
+  
+    <a href="/2018/05/23/Syntax-Error-unexpected-token/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">
+        
+          Syntax Error: unexpected token &lt;
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/05/15/关于在list循环的过程中进行删除的处理/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">关于在list循环的过程中进行删除的处理</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+ 
+     
+  <div class="comments" id="comments">
+    
+     
+       
+      <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+    
+       
+      
+           <div id="uyan_frame"></div>
+    
+      
+  </div>
+ 
+  
+
+</section>
+           
+    <aside id="sidebar">
+  
+    
+
+  
+    
+    <div class="widget-wrap">
+    
+      <div class="widget" id="toc-widget-fixed">
+      
+        <strong class="toc-title">文章目录</strong>
+        <div class="toc-widget-list">
+              <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#lt-ui-view-gt-的使用"><span class="toc-number">1.</span> <span class="toc-text">&lt;ui-view&gt;的使用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#css的定位"><span class="toc-number">2.</span> <span class="toc-text">css的定位</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#设置背景的透明度"><span class="toc-number">3.</span> <span class="toc-text">设置背景的透明度</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#z-index的分层"><span class="toc-number">4.</span> <span class="toc-text">z-index的分层</span></a></li></ol>
+          </div>
+      </div>
+    </div>
+
+  
+    
+
+  
+    
+  
+    
+  
+    
+
+  
+    
+  
+    <!--微信公众号二维码-->
+
+
+  
+</aside>
+
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-left">
+      &copy; 2014 - 2018 zhuchenshu&nbsp;|&nbsp;
+      主题 <a href="https://github.com/giscafer/hexo-theme-cafe/" target="_blank">Cafe</a>
+    </div>
+     <div id="footer-right">
+      联系方式&nbsp;|&nbsp;1369359429@qq.com
+    </div>
+  </div>
+</footer>
+ <script src="/jquery/jquery.min.js"></script>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/archives" class="mobile-nav-link">归档</a>
+  
+    <a href="/about" class="mobile-nav-link">关于</a>
+  
+</nav>
+    <img class="back-to-top-btn" src="/images/fly-to-top.png"/>
+<script>
+// Elevator script included on the page, already.
+window.onload = function() {
+  var elevator = new Elevator({
+    selector:'.back-to-top-btn',
+    element: document.querySelector('.back-to-top-btn'),
+    duration: 1000 // milliseconds
+  });
+}
+</script>
+      
+
+
+
+
+
+ <script  type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=true"></script>
+
+
+
+<!-- author:forvoid begin -->
+<!-- author:forvoid begin -->
+
+<!-- author:forvoid end -->
+
+<!-- author:forvoid end -->
+
+
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      })
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      })
+    </script>
+    <script type="text/javascript" src="https://cdn.rawgit.com/mathjax/MathJax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+ <script src="/js/is.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+<script src="/js/elevator.js"></script>
+  </div>
+</body>
+</html>

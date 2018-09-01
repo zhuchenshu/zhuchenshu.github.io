@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>ng-select ng-options | 晨澍的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="最近一段时间的项目中遇到了很多的关于下拉框的场景，当时只是模仿原有的项目代码，并没有深入的理解，为此写此博客将该问题深入进行理解。">
+<meta name="keywords" content="angularjs">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ng-select ng-options">
+<meta property="og:url" content="http://zhuchenshu.github.io/2018/05/11/ng-select-ng-options/index.html">
+<meta property="og:site_name" content="晨澍的博客">
+<meta property="og:description" content="最近一段时间的项目中遇到了很多的关于下拉框的场景，当时只是模仿原有的项目代码，并没有深入的理解，为此写此博客将该问题深入进行理解。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-05-23T08:21:27.006Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ng-select ng-options">
+<meta name="twitter:description" content="最近一段时间的项目中遇到了很多的关于下拉框的场景，当时只是模仿原有的项目代码，并没有深入的理解，为此写此博客将该问题深入进行理解。">
+  
+    <link rel="alternate" href="/atom.xml" title="晨澍的博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    
+    <div id="header-inner" class="inner">
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://zhuchenshu.github.io"></form>
+      </div>
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">首页</a>
+        
+          <a class="main-nav-link" href="/archives">归档</a>
+        
+          <a class="main-nav-link" href="/about">关于</a>
+        
+      </nav>
+      
+    </div>
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">晨澍的博客</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">成长的菜鸟</a>
+        </h2>
+      
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-ng-select-ng-options" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/05/11/ng-select-ng-options/" class="article-date">
+  <time datetime="2018-05-11T10:17:21.000Z" itemprop="datePublished">2018-05-11</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      ng-select ng-options
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- Table of Contents -->
+        
+        <p> 最近一段时间的项目中遇到了很多的关于下拉框的场景，当时只是模仿原有的项目代码，并没有深入的理解，为此写此博客将该问题深入进行理解。</p>
+<a id="more"></a>
+<!--more-->
+<p>主要是对ng-options的学习</p>
+<p>下面现将ng-options的几个典型的用法列出来<br>在<code>&lt;select&gt;</code>指令中<code>ng-model</code> 与 <code>ng-options</code> 配合使用</p>
+<p>ngOption针对不同类型的数据源有不同的用法，主要体现在数组和对象上，因为我们主要使用数组，所以下面主要讲数组。</p>
+<p><code>label for value in array</code><br>这是最简单的一个只是简单的将数组中对象的lable属性显示出来，ng-model的值还是value。</p>
+<p><code>select as label for value in array</code><br>这种写法中涉及到as的使用，当前的显示还依然是lable的值，但是ng-model的值已经发生了改变，成为了select中的值</p>
+<p><code>label group by group for value in array</code><br>这种写法涉及到group for的使用当前的显示还是lable,但回按照group分组，ng-model的值为value</p>
+<p><code>label for value in array  track by trackexpr</code><br>这条指令涉及到track by 的使用用于唯一确定数组中的迭代项的表达式,当lable相同时，指定唯一的value值与ng-model绑定<br>注意看我们下面的代码演示功能，我们在ng-mode上绑定了一个对象，track by 为我们自动的绑定上了这个对象。</p>
+<p>当数据源为对象时<br><code>label for ( key , value ) in object</code><br>为大概使用模式，就是将value改为 <code>( key , value )</code>如下形式，ng-model默认绑定model</p>
+<p>在学习上面几种写法时，发现track by 的使用不太好理解,用官网上的例子说明一下。<br>This will work:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;select ng-options=&quot;item as item.label for item in items track by item.id&quot; ng-model=&quot;selected&quot;&gt;&lt;/select&gt;</div></pre></td></tr></table></figure>
+<p><code>$scope.selected = $scope.items[0];</code></p>
+<p>but this will not work:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;select ng-options=&quot;item.subItem as item.label for item in items track by item.id&quot; ng-model=&quot;selected&quot;&gt;&lt;/select&gt;</div></pre></td></tr></table></figure>
+<p><code>$scope.selected = $scope.items[0].subItem;</code></p>
+<p>第一个你可以通过<code>ng-model</code>来唯一确定数组中的迭代项，<code>items[0]</code>里面包含<code>item.id</code><br>第二个你会发现<code>items[0].subItem</code>不能确定<code>item.id</code></p>
+<p>如下是代码演示<br><a href="http://runjs.cn/code/p5pqwvgs" target="_blank" rel="external">参考代码</a></p>
+<script type="text/javascript" src="http://runjs.cn/gist/p5pqwvgs"></script>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://zhuchenshu.github.io/2018/05/11/ng-select-ng-options/" data-id="cjijkqpgh000w1sv4jmt4hrvp" class="article-share-link">分享</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/angularjs/">angularjs</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+ <script src="/jquery/jquery.min.js"></script>
+  <div id="random_posts">
+    <h2>推荐文章</h2>
+    <div class="random_posts_ul">
+      <script>
+          var random_count =4
+          var site = {BASE_URI:'/'};
+          function load_random_posts(obj) {
+              var arr=site.posts;
+              if (!obj) return;
+              // var count = $(obj).attr('data-count') || 6;
+              for (var i, tmp, n = arr.length; n; i = Math.floor(Math.random() * n), tmp = arr[--n], arr[n] = arr[i], arr[i] = tmp);
+              arr = arr.slice(0, random_count);
+              var html = '<ul>';
+            
+              for(var j=0;j<arr.length;j++){
+                var item=arr[j];
+                html += '<li><strong>' + 
+                item.date + ':&nbsp;&nbsp;<a href="' + (site.BASE_URI+item.uri) + '">' + 
+                (item.title || item.uri) + '</a></strong>';
+                if(item.excerpt){
+                  html +='<div class="post-excerpt">'+item.excerpt+'</div>';
+                }
+                html +='</li>';
+                
+              }
+              $(obj).html(html + '</ul>');
+          }
+          $('.random_posts_ul').each(function () {
+              var c = this;
+              if (!site.posts || !site.posts.length){
+                  $.getJSON(site.BASE_URI + 'js/posts.js',function(json){site.posts = json;load_random_posts(c)});
+              } 
+               else{
+                load_random_posts(c);
+              }
+          });
+      </script>
+    </div>
+  </div>
+
+    
+<nav id="article-nav">
+  
+    <a href="/2018/05/15/关于在list循环的过程中进行删除的处理/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">
+        
+          关于在list循环的过程中进行删除的处理
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/05/11/spring-hebernate-数据查询/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">spring hebernate 数据查询</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+ 
+     
+  <div class="comments" id="comments">
+    
+     
+       
+      <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+    
+       
+      
+           <div id="uyan_frame"></div>
+    
+      
+  </div>
+ 
+  
+
+</section>
+           
+    <aside id="sidebar">
+  
+    
+
+  
+    
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title recent-posts">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/06/18/mybatis学习笔记/">mybatis学习笔记</a>
+          </li>
+        
+          <li>
+            <a href="/2018/06/17/部分表單验证及表单编辑-1/">部分表单验证及表单编辑记录</a>
+          </li>
+        
+          <li>
+            <a href="/2018/06/09/FileSaver-js实现文件下载-1/">FileSaver.js实现文件下载</a>
+          </li>
+        
+          <li>
+            <a href="/2018/06/09/java异常与日志/">java异常与日志</a>
+          </li>
+        
+          <li>
+            <a href="/2018/06/02/读Spring实战有感/">读Spring实战有感</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+
+  
+    
+  
+    <!--微信公众号二维码-->
+
+
+  
+</aside>
+
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-left">
+      &copy; 2014 - 2018 zhuchenshu&nbsp;|&nbsp;
+      主题 <a href="https://github.com/giscafer/hexo-theme-cafe/" target="_blank">Cafe</a>
+    </div>
+     <div id="footer-right">
+      联系方式&nbsp;|&nbsp;1369359429@qq.com
+    </div>
+  </div>
+</footer>
+ <script src="/jquery/jquery.min.js"></script>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/archives" class="mobile-nav-link">归档</a>
+  
+    <a href="/about" class="mobile-nav-link">关于</a>
+  
+</nav>
+    <img class="back-to-top-btn" src="/images/fly-to-top.png"/>
+<script>
+// Elevator script included on the page, already.
+window.onload = function() {
+  var elevator = new Elevator({
+    selector:'.back-to-top-btn',
+    element: document.querySelector('.back-to-top-btn'),
+    duration: 1000 // milliseconds
+  });
+}
+</script>
+      
+
+
+
+
+
+ <script  type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=true"></script>
+
+
+
+<!-- author:forvoid begin -->
+<!-- author:forvoid begin -->
+
+<!-- author:forvoid end -->
+
+<!-- author:forvoid end -->
+
+
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      })
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      })
+    </script>
+    <script type="text/javascript" src="https://cdn.rawgit.com/mathjax/MathJax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+ <script src="/js/is.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+<script src="/js/elevator.js"></script>
+  </div>
+</body>
+</html>

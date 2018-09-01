@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>部分表单验证及表单编辑记录 | 晨澍的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="最近完成了部分的表单验证以及，在table中实现表单的编辑功能。在此记录自己的实现过程。">
+<meta name="keywords" content="angularjs">
+<meta property="og:type" content="article">
+<meta property="og:title" content="部分表单验证及表单编辑记录">
+<meta property="og:url" content="http://zhuchenshu.github.io/2018/06/17/部分表單验证及表单编辑-1/index.html">
+<meta property="og:site_name" content="晨澍的博客">
+<meta property="og:description" content="最近完成了部分的表单验证以及，在table中实现表单的编辑功能。在此记录自己的实现过程。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://zhuchenshu.github.io/2018/06/17/部分表單验证及表单编辑-1/001.png">
+<meta property="og:image" content="http://zhuchenshu.github.io/2018/06/17/部分表單验证及表单编辑-1/002.png">
+<meta property="og:image" content="http://zhuchenshu.github.io/2018/06/17/部分表單验证及表单编辑-1/003.png">
+<meta property="og:image" content="http://zhuchenshu.github.io/2018/06/17/部分表單验证及表单编辑-1/004.png">
+<meta property="og:updated_time" content="2018-09-01T13:09:08.232Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="部分表单验证及表单编辑记录">
+<meta name="twitter:description" content="最近完成了部分的表单验证以及，在table中实现表单的编辑功能。在此记录自己的实现过程。">
+<meta name="twitter:image" content="http://zhuchenshu.github.io/2018/06/17/部分表單验证及表单编辑-1/001.png">
+  
+    <link rel="alternate" href="/atom.xml" title="晨澍的博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    
+    <div id="header-inner" class="inner">
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://zhuchenshu.github.io"></form>
+      </div>
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">首页</a>
+        
+          <a class="main-nav-link" href="/archives">归档</a>
+        
+          <a class="main-nav-link" href="/about">关于</a>
+        
+      </nav>
+      
+    </div>
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">晨澍的博客</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">成长的菜鸟</a>
+        </h2>
+      
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-部分表單验证及表单编辑-1" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/06/17/部分表單验证及表单编辑-1/" class="article-date">
+  <time datetime="2018-06-17T03:43:06.000Z" itemprop="datePublished">2018-06-17</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      部分表单验证及表单编辑记录
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- Table of Contents -->
+        
+        <p>最近完成了部分的表单验证以及，在table中实现表单的编辑功能。在此记录自己的实现过程。</p>
+<a id="more"></a>
+<!--more-->
+<h3 id="部分表单验证"><a href="#部分表单验证" class="headerlink" title="部分表单验证"></a>部分表单验证</h3><p>效果图如下：</p>
+<p><img src="001.png" alt="验证001"></p>
+<p><img src="002.png" alt="验证002"></p>
+<p><img src="003.png" alt="验证003"></p>
+<p>代码如下：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"form-group"</span> <span class="attr">ng-if</span>=<span class="string">"data.parentMeasurementUnit.id"</span>&gt;</span></div><div class="line">                <span class="tag">&lt;<span class="name">label</span> <span class="attr">class</span>=<span class="string">"col-sm-4 control-label"</span>&gt;</span>相对于父计量单位的倍数<span class="tag">&lt;/<span class="name">label</span>&gt;</span></div><div class="line">                <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"col-sm-8"</span>&gt;</span></div><div class="line">                    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">ng-disabled</span>=<span class="string">"disable"</span>  <span class="attr">ng-pattern</span>=<span class="string">"regex"</span> <span class="attr">ng-blur</span>=<span class="string">"line=true"</span> <span class="attr">class</span>=<span class="string">"form-control"</span> <span class="attr">placeholder</span>=<span class="string">"请输入倍数"</span> <span class="attr">ng-model</span>=<span class="string">"data.multipleOfParent"</span> <span class="attr">name</span>=<span class="string">"multipleOfParent"</span> <span class="attr">required</span>&gt;</span></div><div class="line">                    <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"text-danger"</span> <span class="attr">ng-show</span>=<span class="string">"myForm.multipleOfParent.$error.pattern &amp;&amp; line"</span>&gt;</span>请输入正整数<span class="tag">&lt;/<span class="name">span</span>&gt;</span></div><div class="line">                    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"m-t-xs"</span> <span class="attr">ng-show</span>=<span class="string">"myForm.multipleOfParent.$touched &amp;&amp; myForm.multipleOfParent.$invalid"</span>&gt;</span></div><div class="line">                        <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"text-danger"</span> <span class="attr">ng-show</span>=<span class="string">"myForm.multipleOfParent.$error.required"</span>&gt;</span><span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">"fa fa-exclamation-triangle"</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span> 倍数是必须的。<span class="tag">&lt;/<span class="name">span</span>&gt;</span></div><div class="line">                    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">                <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">            <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>实现过程：<br>目的实现相关是想验证前一部分的表单，当之输入前一部分表单时，验证通过可以提交。<br>当后一部分表单触发后开始验证全局表单，全部填写完成后才可以提交。</p>
+<p>最后使用的是<code>ng-if</code>所实现的，在这里谈一下<code>ng-if</code>与’ng-show’和’ng-false’的区别：<br>    相同点：<br>    ng-show和ng-if都可以用来控制元素是否显示。当值为true时，表示显示该元素；当值为false时，表示隐藏该元素。<br>    不同点：<br>    ng-show在页面进行渲染的时候，已经将该元素加载，如果值为false，元素需要隐藏的话，在Chrome浏览器中可以查看出，渲染出来的元素仅仅是加了一个ng-hide的class，以此来控制元素的显示与否。<br>    ng-if 在页面渲染的时候，如果值为false，是不会将元素加载出来的，如果值发生了改变为true，则通过操作dom的方式动态添加元素。注意：在这个时候，如果通过document，或者Jquery等方式获取元素进行操作的话，可能是获取不到的。 </p>
+<hr>
+<h3 id="表单编辑"><a href="#表单编辑" class="headerlink" title="表单编辑"></a>表单编辑</h3><p>实现效果：</p>
+<p><img src="004.png" alt="表单验证"></p>
+<p>实现代码：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">span</span> <span class="attr">ng-if</span>=<span class="string">"!measurementUnit._editWegiht"</span>&gt;</span>&#123;&#123;measurementUnit.weight&#125;&#125;<span class="tag">&lt;/<span class="name">span</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">span</span> <span class="attr">ng-if</span>=<span class="string">"measurementUnit._editWegiht"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">class</span>=<span class="string">"form-control"</span> <span class="attr">type</span>=<span class="string">"number"</span> <span class="attr">name</span>=<span class="string">"weight"</span> <span class="attr">ng-model</span> = <span class="string">"measurementUnit.weight"</span> <span class="attr">ng-change</span>=<span class="string">"updateWeight(measurementUnit.weight, measurementUnit.id, measurementUnit)"</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">span</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">"btn btn-xs btn-warning"</span> <span class="attr">ng-if</span>=<span class="string">"!measurementUnit._editWegiht"</span> <span class="attr">ng-click</span>=<span class="string">"changeEditWeight(measurementUnit)"</span>&gt;</span><span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">"fa fa-paste"</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span>&amp;nbsp;编辑权重<span class="tag">&lt;/<span class="name">a</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">"btn btn-xs btn-warning"</span> <span class="attr">ng-if</span>=<span class="string">"measurementUnit._editWegiht"</span> <span class="attr">ng-click</span>=<span class="string">"changeEditWeight(measurementUnit)"</span>&gt;</span><span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">"fa fa-paste"</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span>&amp;nbsp;保存权重<span class="tag">&lt;/<span class="name">a</span>&gt;</span></div></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 点击转换权重是否可编辑</span></div><div class="line">self.changeEditWeight = <span class="function"><span class="keyword">function</span>(<span class="params">measurementUnit</span>) </span>&#123;</div><div class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> (measurementUnit._editWegiht) === <span class="string">'undefined'</span> || measurementUnit._editWegiht === <span class="literal">false</span>)  &#123;</div><div class="line">      measurementUnit._editWegiht = <span class="literal">true</span>;</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">      measurementUnit._editWegiht = <span class="literal">false</span>;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>实现过程：</p>
+<p>使用<code>ng-if</code>来控制显示效果，同时使用<code>ng-change</code>来监听改变，当发生改变时，触发后台的改变数据的方法。</p>
+<p>注意要为每一条表单数据添加控制显示的属性值。可以为每一个对象添加属性，也可以默认不添加，在点击判断的时候，加上<code>undefined</code>的判断。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://zhuchenshu.github.io/2018/06/17/部分表單验证及表单编辑-1/" data-id="cjijkqpg8000q1sv4qym4fd3v" class="article-share-link">分享</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/angularjs/">angularjs</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+ <script src="/jquery/jquery.min.js"></script>
+  <div id="random_posts">
+    <h2>推荐文章</h2>
+    <div class="random_posts_ul">
+      <script>
+          var random_count =4
+          var site = {BASE_URI:'/'};
+          function load_random_posts(obj) {
+              var arr=site.posts;
+              if (!obj) return;
+              // var count = $(obj).attr('data-count') || 6;
+              for (var i, tmp, n = arr.length; n; i = Math.floor(Math.random() * n), tmp = arr[--n], arr[n] = arr[i], arr[i] = tmp);
+              arr = arr.slice(0, random_count);
+              var html = '<ul>';
+            
+              for(var j=0;j<arr.length;j++){
+                var item=arr[j];
+                html += '<li><strong>' + 
+                item.date + ':&nbsp;&nbsp;<a href="' + (site.BASE_URI+item.uri) + '">' + 
+                (item.title || item.uri) + '</a></strong>';
+                if(item.excerpt){
+                  html +='<div class="post-excerpt">'+item.excerpt+'</div>';
+                }
+                html +='</li>';
+                
+              }
+              $(obj).html(html + '</ul>');
+          }
+          $('.random_posts_ul').each(function () {
+              var c = this;
+              if (!site.posts || !site.posts.length){
+                  $.getJSON(site.BASE_URI + 'js/posts.js',function(json){site.posts = json;load_random_posts(c)});
+              } 
+               else{
+                load_random_posts(c);
+              }
+          });
+      </script>
+    </div>
+  </div>
+
+    
+<nav id="article-nav">
+  
+    <a href="/2018/06/18/mybatis学习笔记/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">
+        
+          mybatis学习笔记
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/06/09/FileSaver-js实现文件下载-1/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">FileSaver.js实现文件下载</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+ 
+     
+  <div class="comments" id="comments">
+    
+     
+       
+      <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+    
+       
+      
+           <div id="uyan_frame"></div>
+    
+      
+  </div>
+ 
+  
+
+</section>
+           
+    <aside id="sidebar">
+  
+    
+
+  
+    
+    <div class="widget-wrap">
+    
+      <div class="widget" id="toc-widget-fixed">
+      
+        <strong class="toc-title">文章目录</strong>
+        <div class="toc-widget-list">
+              <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#部分表单验证"><span class="toc-number">1.</span> <span class="toc-text">部分表单验证</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#表单编辑"><span class="toc-number">2.</span> <span class="toc-text">表单编辑</span></a></li></ol>
+          </div>
+      </div>
+    </div>
+
+  
+    
+
+  
+    
+  
+    
+  
+    
+
+  
+    
+  
+    <!--微信公众号二维码-->
+
+
+  
+</aside>
+
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-left">
+      &copy; 2014 - 2018 zhuchenshu&nbsp;|&nbsp;
+      主题 <a href="https://github.com/giscafer/hexo-theme-cafe/" target="_blank">Cafe</a>
+    </div>
+     <div id="footer-right">
+      联系方式&nbsp;|&nbsp;1369359429@qq.com
+    </div>
+  </div>
+</footer>
+ <script src="/jquery/jquery.min.js"></script>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/archives" class="mobile-nav-link">归档</a>
+  
+    <a href="/about" class="mobile-nav-link">关于</a>
+  
+</nav>
+    <img class="back-to-top-btn" src="/images/fly-to-top.png"/>
+<script>
+// Elevator script included on the page, already.
+window.onload = function() {
+  var elevator = new Elevator({
+    selector:'.back-to-top-btn',
+    element: document.querySelector('.back-to-top-btn'),
+    duration: 1000 // milliseconds
+  });
+}
+</script>
+      
+
+
+
+
+
+ <script  type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=true"></script>
+
+
+
+<!-- author:forvoid begin -->
+<!-- author:forvoid begin -->
+
+<!-- author:forvoid end -->
+
+<!-- author:forvoid end -->
+
+
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      })
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      })
+    </script>
+    <script type="text/javascript" src="https://cdn.rawgit.com/mathjax/MathJax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+ <script src="/js/is.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+<script src="/js/elevator.js"></script>
+  </div>
+</body>
+</html>

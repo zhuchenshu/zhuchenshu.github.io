@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>ui-view的使用总结 | 晨澍的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="在平常的编码过程中一直没搞明白ui-view的使用，一直是到了路由跳转的时候，显示不出来了就加上一个，ui-view或者有的时候加上了之后又不对了就有去掉，为此专门查了一下ui-view到底如何使用。">
+<meta name="keywords" content="angularjs">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ui-view的使用总结">
+<meta property="og:url" content="http://zhuchenshu.github.io/2018/06/01/ui-view的使用总结/index.html">
+<meta property="og:site_name" content="晨澍的博客">
+<meta property="og:description" content="在平常的编码过程中一直没搞明白ui-view的使用，一直是到了路由跳转的时候，显示不出来了就加上一个，ui-view或者有的时候加上了之后又不对了就有去掉，为此专门查了一下ui-view到底如何使用。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-06-02T02:05:34.775Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ui-view的使用总结">
+<meta name="twitter:description" content="在平常的编码过程中一直没搞明白ui-view的使用，一直是到了路由跳转的时候，显示不出来了就加上一个，ui-view或者有的时候加上了之后又不对了就有去掉，为此专门查了一下ui-view到底如何使用。">
+  
+    <link rel="alternate" href="/atom.xml" title="晨澍的博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    
+    <div id="header-inner" class="inner">
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://zhuchenshu.github.io"></form>
+      </div>
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">首页</a>
+        
+          <a class="main-nav-link" href="/archives">归档</a>
+        
+          <a class="main-nav-link" href="/about">关于</a>
+        
+      </nav>
+      
+    </div>
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">晨澍的博客</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">成长的菜鸟</a>
+        </h2>
+      
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-ui-view的使用总结" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/06/01/ui-view的使用总结/" class="article-date">
+  <time datetime="2018-06-01T14:14:44.000Z" itemprop="datePublished">2018-06-01</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      ui-view的使用总结
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- Table of Contents -->
+        
+        <p>在平常的编码过程中一直没搞明白ui-view的使用，一直是到了路由跳转的时候，显示不出来了就加上一个，ui-view或者有的时候加上了之后又不对了就有去掉，为此专门查了一下ui-view到底如何使用。</p>
+<a id="more"></a>
+<!--more-->
+<p>这里主要介绍关于，ui-view的简单嵌套使用，关于ui-view的一些复杂的使用还没有学到，等到学到之后在进行补充。</p>
+<p>在这里我们使用例子进行简单的说明，这个例子参考的是官网上的例子</p>
+<p>这是我们例子中的路由，共有三个，依次向上嵌套。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">var states = [</div><div class="line">  &#123;</div><div class="line">    name: &apos;folderlist&apos;,</div><div class="line">    component: FolderListComponent</div><div class="line">  &#125;,</div><div class="line">  &#123;</div><div class="line">    name: &apos;folderlist.messagelist&apos;,</div><div class="line">    component: MessageListComponent</div><div class="line">  &#125;,</div><div class="line">  &#123;</div><div class="line">    name: &apos;folderlist.messagelist.message&apos;,</div><div class="line">    component: MessageContentComponent</div><div class="line">  &#125;</div><div class="line">];</div></pre></td></tr></table></figure>
+<p>如下是我们触发了我们的一级路由，加载出的界面的代码如下,注意看代码中有该模块的嵌套路由，这是他的子路由并未激活，所以是空的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">&lt;FolderListComponent&gt;</div><div class="line">  &lt;ul class=&quot;left&quot;&gt;</div><div class="line">    &lt;li&gt;INBOX&lt;/li&gt;</div><div class="line">    &lt;li&gt;SPAM&lt;/li&gt;</div><div class="line">    &lt;li&gt;DELETED&lt;/li&gt;</div><div class="line">    &lt;li&gt;SENT&lt;/li&gt;</div><div class="line">  &lt;/ul&gt;</div><div class="line"></div><div class="line">  &lt;div class=&quot;right&quot;&gt;</div><div class="line">    &lt;uiview&gt;</div><div class="line">      &lt;MessageListComponent class=&quot;top&quot;&gt;</div><div class="line">        &lt;ul&gt;</div><div class="line">          &lt;li&gt;Message 1&lt;/li&gt;</div><div class="line">          &lt;li&gt;Message 2&lt;/li&gt;</div><div class="line">          &lt;li&gt;Message 3&lt;/li&gt;</div><div class="line">        &lt;/ul&gt;</div><div class="line"></div><div class="line">        &lt;div class=&quot;bottom&quot;&gt;</div><div class="line">          &lt;uiview&gt;&lt;/uiview&gt;</div><div class="line">        &lt;/div&gt;</div><div class="line">      &lt;/MessageListComponent&gt;</div><div class="line">    &lt;/uiview&gt;</div><div class="line">  &lt;/div&gt;</div><div class="line">&lt;/FolderListComponent&gt;</div></pre></td></tr></table></figure>
+<p>如下当我们激活了他的子路由的时候MessageListComponent的信息加载进来，生成的代码如下，FolderListComponent的嵌套ui-view已经加载完毕,可以看出我们还嵌套着三级路由，未激活的状态下内容为空。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">&lt;FolderListComponent&gt;</div><div class="line">  &lt;ul class=&quot;left&quot;&gt;</div><div class="line">    &lt;li&gt;INBOX&lt;/li&gt;</div><div class="line">    &lt;li&gt;SPAM&lt;/li&gt;</div><div class="line">    &lt;li&gt;DELETED&lt;/li&gt;</div><div class="line">    &lt;li&gt;SENT&lt;/li&gt;</div><div class="line">  &lt;/ul&gt;</div><div class="line"></div><div class="line">  &lt;div class=&quot;right&quot;&gt;</div><div class="line">    &lt;uiview&gt;</div><div class="line">      &lt;MessageListComponent class=&quot;top&quot;&gt;</div><div class="line">        &lt;ul&gt;</div><div class="line">          &lt;li&gt;Message 1&lt;/li&gt;</div><div class="line">          &lt;li&gt;Message 2&lt;/li&gt;</div><div class="line">          &lt;li&gt;Message 3&lt;/li&gt;</div><div class="line">        &lt;/ul&gt;</div><div class="line"></div><div class="line">        &lt;div class=&quot;bottom&quot;&gt;</div><div class="line">          &lt;uiview&gt;&lt;/uiview&gt;</div><div class="line">        &lt;/div&gt;</div><div class="line">      &lt;/MessageListComponent&gt;</div><div class="line">    &lt;/uiview&gt;</div><div class="line">  &lt;/div&gt;</div><div class="line">&lt;/FolderListComponent&gt;</div></pre></td></tr></table></figure>
+<p>下面我们来激活三级路由，MessageContentComponent的内容就加载进来了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line">&lt;FolderListComponent&gt;</div><div class="line">  &lt;ul class=&quot;left&quot;&gt;</div><div class="line">    &lt;li&gt;INBOX&lt;/li&gt;</div><div class="line">    &lt;li&gt;SPAM&lt;/li&gt;</div><div class="line">    &lt;li&gt;DELETED&lt;/li&gt;</div><div class="line">    &lt;li&gt;SENT&lt;/li&gt;</div><div class="line">  &lt;/ul&gt;</div><div class="line"></div><div class="line">  &lt;div class=&quot;right&quot;&gt;</div><div class="line">    &lt;uiview&gt;</div><div class="line">      &lt;MessageListComponent class=&quot;top&quot;&gt;</div><div class="line">        &lt;ul&gt;</div><div class="line">          &lt;li&gt;Message 1&lt;/li&gt;</div><div class="line">          &lt;li&gt;Message 2&lt;/li&gt;</div><div class="line">          &lt;li&gt;Message 3&lt;/li&gt;</div><div class="line">        &lt;/ul&gt;</div><div class="line"></div><div class="line">        &lt;div class=&quot;bottom&quot;&gt;</div><div class="line">          &lt;uiview&gt;</div><div class="line">            &lt;MessageContentComponent&gt;</div><div class="line">              &lt;p&gt;Date: 2017-08-01&lt;/p&gt;</div><div class="line">              &lt;p&gt;Sender: GlobalCorp Bank&lt;/p&gt;</div><div class="line">              &lt;p&gt;Subject: Need a loan?&lt;/p&gt;</div><div class="line">              &lt;div class=&quot;body&quot;&gt;</div><div class="line">                &lt;p&gt;Hey you! We have the best loans.&lt;/p&gt;</div><div class="line">                &lt;p&gt;You should really get a loan.&lt;/p&gt;</div><div class="line">                &lt;p&gt;Loans are awesome.&lt;/p&gt;</div><div class="line">              &lt;/div&gt;</div><div class="line">            &lt;/MessageContentComponent&gt;</div><div class="line">          &lt;/uiview&gt;</div><div class="line">        &lt;/div&gt;</div><div class="line">      &lt;/MessageListComponent&gt;</div><div class="line">    &lt;/uiview&gt;</div><div class="line">  &lt;/div&gt;</div><div class="line">&lt;/FolderListComponent&gt;</div></pre></td></tr></table></figure>
+<p>所以当我们在简单的使用<code>ui-view</code>的嵌套时，我们会发现，我们的每一层的嵌套关系都会加上一个<code>ui-view</code>,然后当我们激活他的嵌套的子级路由时，<code>ui-view</code>里的内容就会被激活。</p>
+<p><a href="https://ui-router.github.io/guide/views" target="_blank" rel="external">参考文档</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://zhuchenshu.github.io/2018/06/01/ui-view的使用总结/" data-id="cjijkqpgf000u1sv4hlqblb8g" class="article-share-link">分享</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/angularjs/">angularjs</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+ <script src="/jquery/jquery.min.js"></script>
+  <div id="random_posts">
+    <h2>推荐文章</h2>
+    <div class="random_posts_ul">
+      <script>
+          var random_count =4
+          var site = {BASE_URI:'/'};
+          function load_random_posts(obj) {
+              var arr=site.posts;
+              if (!obj) return;
+              // var count = $(obj).attr('data-count') || 6;
+              for (var i, tmp, n = arr.length; n; i = Math.floor(Math.random() * n), tmp = arr[--n], arr[n] = arr[i], arr[i] = tmp);
+              arr = arr.slice(0, random_count);
+              var html = '<ul>';
+            
+              for(var j=0;j<arr.length;j++){
+                var item=arr[j];
+                html += '<li><strong>' + 
+                item.date + ':&nbsp;&nbsp;<a href="' + (site.BASE_URI+item.uri) + '">' + 
+                (item.title || item.uri) + '</a></strong>';
+                if(item.excerpt){
+                  html +='<div class="post-excerpt">'+item.excerpt+'</div>';
+                }
+                html +='</li>';
+                
+              }
+              $(obj).html(html + '</ul>');
+          }
+          $('.random_posts_ul').each(function () {
+              var c = this;
+              if (!site.posts || !site.posts.length){
+                  $.getJSON(site.BASE_URI + 'js/posts.js',function(json){site.posts = json;load_random_posts(c)});
+              } 
+               else{
+                load_random_posts(c);
+              }
+          });
+      </script>
+    </div>
+  </div>
+
+    
+<nav id="article-nav">
+  
+    <a href="/2018/06/02/读Spring实战有感/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">
+        
+          读Spring实战有感
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/06/01/go-与-transitionTo-的区别/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">$state.go()与$state.transitionTo()的区别</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+ 
+     
+  <div class="comments" id="comments">
+    
+     
+       
+      <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+    
+       
+      
+           <div id="uyan_frame"></div>
+    
+      
+  </div>
+ 
+  
+
+</section>
+           
+    <aside id="sidebar">
+  
+    
+
+  
+    
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title recent-posts">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/06/18/mybatis学习笔记/">mybatis学习笔记</a>
+          </li>
+        
+          <li>
+            <a href="/2018/06/17/部分表單验证及表单编辑-1/">部分表单验证及表单编辑记录</a>
+          </li>
+        
+          <li>
+            <a href="/2018/06/09/FileSaver-js实现文件下载-1/">FileSaver.js实现文件下载</a>
+          </li>
+        
+          <li>
+            <a href="/2018/06/09/java异常与日志/">java异常与日志</a>
+          </li>
+        
+          <li>
+            <a href="/2018/06/02/读Spring实战有感/">读Spring实战有感</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+
+  
+    
+  
+    <!--微信公众号二维码-->
+
+
+  
+</aside>
+
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-left">
+      &copy; 2014 - 2018 zhuchenshu&nbsp;|&nbsp;
+      主题 <a href="https://github.com/giscafer/hexo-theme-cafe/" target="_blank">Cafe</a>
+    </div>
+     <div id="footer-right">
+      联系方式&nbsp;|&nbsp;1369359429@qq.com
+    </div>
+  </div>
+</footer>
+ <script src="/jquery/jquery.min.js"></script>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/archives" class="mobile-nav-link">归档</a>
+  
+    <a href="/about" class="mobile-nav-link">关于</a>
+  
+</nav>
+    <img class="back-to-top-btn" src="/images/fly-to-top.png"/>
+<script>
+// Elevator script included on the page, already.
+window.onload = function() {
+  var elevator = new Elevator({
+    selector:'.back-to-top-btn',
+    element: document.querySelector('.back-to-top-btn'),
+    duration: 1000 // milliseconds
+  });
+}
+</script>
+      
+
+
+
+
+
+ <script  type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=true"></script>
+
+
+
+<!-- author:forvoid begin -->
+<!-- author:forvoid begin -->
+
+<!-- author:forvoid end -->
+
+<!-- author:forvoid end -->
+
+
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      })
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      })
+    </script>
+    <script type="text/javascript" src="https://cdn.rawgit.com/mathjax/MathJax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+ <script src="/js/is.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+<script src="/js/elevator.js"></script>
+  </div>
+</body>
+</html>
