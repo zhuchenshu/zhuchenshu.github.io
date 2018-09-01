@@ -13,7 +13,7 @@
 <meta property="og:site_name" content="晨澍的博客">
 <meta property="og:description" content="将原有项目的文件的文件下载更改成利用fileserver插件来实现。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-06-09T02:04:58.644Z">
+<meta property="og:updated_time" content="2018-06-09T02:04:58.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="FileSaver.js实现文件下载">
 <meta name="twitter:description" content="将原有项目的文件的文件下载更改成利用fileserver插件来实现。">
@@ -101,7 +101,7 @@
 <a id="more"></a>
 <p>具体的实现步骤如下：</p>
 <p>1.将js代码加载到项目中<br>2.利用saveAs保存后台返回的数据</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">// 文件接受</div><div class="line">var blob = new Blob([resp.data]);</div><div class="line">// 利用FileSaver插件，下载接受的文件</div><div class="line">saveAs(blob, &apos;检定申请.pdf’);</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// 文件接受</span><br><span class="line">var blob = new Blob([resp.data]);</span><br><span class="line">// 利用FileSaver插件，下载接受的文件</span><br><span class="line">saveAs(blob, &apos;检定申请.pdf’);</span><br></pre></td></tr></table></figure>
 <p>应用非常简单但中间遇到了两个问题，花了较长时间解决</p>
 <h2 id="1-安裝的問題"><a href="#1-安裝的問題" class="headerlink" title="1.安裝的問題"></a>1.安裝的問題</h2><p>利用命令：<br><code>npm install file-saver --save</code><br><code>bower install file-saver</code></p>
 <p>加载依赖失败,bower包里面只有<code>.json&#39;文件，并没有</code>.js`文件，并且在index.html中也没有引入依赖。</p>
@@ -152,12 +152,12 @@
 <p>Blob 表示的不一定是JavaScript原生格式的数据。File 接口基于Blob，继承了 blob 的功能并将其扩展使其支持用户系统上的文件。</p>
 <p><code>Blob(blobParts[, options])</code></p>
 <p>返回一个新创建的 Blob 对象，其内容由参数中给定的数组串联组成。</p>
-<p><a href="https://github.com/eligrey/FileSaver.js" target="_blank" rel="external">参考文档</a><br><a href="https://www.cnblogs.com/yunser/p/7629399.html" target="_blank" rel="external">中文文档</a></p>
+<p><a href="https://github.com/eligrey/FileSaver.js" target="_blank" rel="noopener">参考文档</a><br><a href="https://www.cnblogs.com/yunser/p/7629399.html" target="_blank" rel="noopener">中文文档</a></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://zhuchenshu.github.io/2018/06/09/FileSaver-js实现文件下载-1/" data-id="cjijkqpe300001sv4zrpp71kk" class="article-share-link">分享</a>
+      <a data-url="http://zhuchenshu.github.io/2018/06/09/FileSaver-js实现文件下载-1/" data-id="cjljidfzy0002p92h2lihwt44" class="article-share-link">分享</a>
       
       
       

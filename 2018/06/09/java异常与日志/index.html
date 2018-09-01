@@ -14,7 +14,7 @@
 <meta property="og:description" content="最近在看java核心技术卷1的异常部分，在此记录一下自己的学习收获。">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://app.yinxiang.com/shard/s64/res/929ab75c-81a9-4f26-a45f-2779eacb5a7f.png">
-<meta property="og:updated_time" content="2018-06-09T02:14:15.090Z">
+<meta property="og:updated_time" content="2018-06-09T02:14:14.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="java异常与日志">
 <meta name="twitter:description" content="最近在看java核心技术卷1的异常部分，在此记录一下自己的学习收获。">
@@ -113,14 +113,14 @@
 <p>总结：一个方法必须声明所有可能抛出的受检异常，而非受检异常error不可控制，RunTimeException，应该避免，你需要在运行期间发生RunTimeException</p>
 <p>自定义异常</p>
 <p>定义一个派生于Exception的类或exception子类的类，一般包含包含两个构造函数，一个默认的构造函数，另一个带有描述信息的构造函数</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">try &#123;</div><div class="line">    try &#123;</div><div class="line">        might throw exception</div><div class="line">    &#125;finally &#123;</div><div class="line">        i.close();</div><div class="line">    &#125;</div><div class="line">&#125;catch (Exception e) &#123;</div><div class="line">    show error message</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">try &#123;</span><br><span class="line">    try &#123;</span><br><span class="line">        might throw exception</span><br><span class="line">    &#125;finally &#123;</span><br><span class="line">        i.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;catch (Exception e) &#123;</span><br><span class="line">    show error message</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>内层try语句确保关闭输入流，外层try语句报告异常，还可以报告finally中的错误</p>
 <h3 id="日志"><a href="#日志" class="headerlink" title="日志"></a>日志</h3><p>static private Logger logger = Logger.getLogger(ApplyServiceTest.class.getName());</p>
 <p>未被任何变量引用的日志记录器可能被垃圾回收，未了防止发生设置为静态变量</p>
 <p>logger的等级：<br>Logger类是用来记录 某个级别的日志消息：<br>　　级别共分为以下几类，从上倒下，级别依次下降：<br>　　　　SEVERE(严重)——级别最高<br>　　　　WARNING(警告)<br>　　　　INFO<br>　　　　CONFIG<br>　　　　FINE<br>　　　　FINER<br>　　　　FINEST———最低值</p>
 <p>Log4j建议只使用四个级别，优先级从高到低分别是ERROR、WARN、INFO、DEBUG。</p>
 <p>可以自已配置日志的显示等级，参考如下博客</p>
-<p><a href="http://www.mengyunzhi.com/index.php/2017/12/04/how-to-config-log4j-in-springmvc/" target="_blank" rel="external">在SPRINGMVC中配置LOG4J日志</a></p>
+<p><a href="http://www.mengyunzhi.com/index.php/2017/12/04/how-to-config-log4j-in-springmvc/" target="_blank" rel="noopener">在SPRINGMVC中配置LOG4J日志</a></p>
 <h3 id="断言"><a href="#断言" class="headerlink" title="断言"></a>断言</h3><p>关于断言自己学的不是很明白，在这里简单的写一下，以后学明白了再做补充</p>
 <p>在java核心卷中提到过，什么时候可以使用断言？</p>
 <ol>
@@ -132,7 +132,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://zhuchenshu.github.io/2018/06/09/java异常与日志/" data-id="cjijkqpfe000c1sv4ey4mhyqk" class="article-share-link">分享</a>
+      <a data-url="http://zhuchenshu.github.io/2018/06/09/java异常与日志/" data-id="cjljidg0e0009p92hxuczpm0y" class="article-share-link">分享</a>
       
       
       

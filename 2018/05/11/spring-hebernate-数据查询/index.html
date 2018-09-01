@@ -12,7 +12,7 @@
 <meta property="og:site_name" content="晨澍的博客">
 <meta property="og:description" content="在使用hebernate的数据查询时总是遇到问题，在此将自己在hebernate中的查询做一下总结">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-05-11T10:52:36.921Z">
+<meta property="og:updated_time" content="2018-05-11T10:52:36.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="spring hebernate 数据查询">
 <meta name="twitter:description" content="在使用hebernate的数据查询时总是遇到问题，在此将自己在hebernate中的查询做一下总结">
@@ -107,26 +107,26 @@
 </ul>
 <p>方法的名字相当于查询的方法并配合方法的参数进行数据查询</p>
 <p>当前方法意思是在当前实体中根据Status，Department，NextCheckDate（在beginDate与endDate之间）这几个属性都为当前实体的属性，通过这几个条件查询满足条件的实体，最后一个参数pageable代表传入分页信息</p>
-<p><a href="https://docs.spring.io/spring-data/jpa/docs/2.0.5.RELEASE/reference/html/" target="_blank" rel="external">参考文档</a></p>
+<p><a href="https://docs.spring.io/spring-data/jpa/docs/2.0.5.RELEASE/reference/html/" target="_blank" rel="noopener">参考文档</a></p>
 <ul>
 <li>使用@query查询，适合多表查询，和复杂查询</li>
 </ul>
 <p>当时遇到问题是：不知道@query里面是存放纯sql语句还是有专门语法，后来查了一下里面的语法不是纯sql语句</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">@Query(&quot;select i from #&#123;#entityName&#125; i&quot; +</div><div class="line"></div><div class="line">&quot; where i.deviceSet.department = :department &quot; +</div><div class="line"></div><div class="line">&quot; and i.lastCheckDate between current_date() and :nextDay &quot;)</div><div class="line"></div><div class="line">Page&lt;StandardDevice&gt; findAllByDepartmentAndLastCheckDateBetweenTodayAndNextDay(@Param(&quot;nextDay&quot;) Date nextDay, @Param(&quot;department&quot;) Department department, Pageable pageable);</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">@Query(&quot;select i from #&#123;#entityName&#125; i&quot; +</span><br><span class="line"></span><br><span class="line">&quot; where i.deviceSet.department = :department &quot; +</span><br><span class="line"></span><br><span class="line">&quot; and i.lastCheckDate between current_date() and :nextDay &quot;)</span><br><span class="line"></span><br><span class="line">Page&lt;StandardDevice&gt; findAllByDepartmentAndLastCheckDateBetweenTodayAndNextDay(@Param(&quot;nextDay&quot;) Date nextDay, @Param(&quot;department&quot;) Department department, Pageable pageable);</span><br></pre></td></tr></table></figure>
 <p>对象比较</p>
 <p>i.<code>deviceSet.department = ：department</code> 可以找到当前实体的标准器的部门,并直接与传入的部门参数进行比较</p>
 <p>日期处理</p>
 <p>i.<code>lastCheckDate between current_date() and :nextDay</code> 检测当前数据的日期是否在今天与下一个时间之间</p>
 <p>i.<code>lastCheckDate &lt; current_date()</code> 检测当前数据的日期是否小于今天</p>
 <p>多表嵌套查询<br>多表查询是使用<code>nativeQuery = true</code>里面使用纯SQL语句</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">// 查找属于某个部门的非检定员用户</div><div class="line">    @Query(value =&quot;select *&quot; +</div><div class="line">            &quot;from user &quot; +</div><div class="line">            &quot;where user.id not in &quot; +</div><div class="line">            &quot;(select check_personal.user_id from check_personal)&quot; +</div><div class="line">            &quot; and user.department_id = :departmentId&quot;, nativeQuery = true)</div><div class="line">    List&lt;User&gt; findNotCheckUserByDepartmentId(@Param(&quot;departmentId&quot;) Long departmentId);</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">// 查找属于某个部门的非检定员用户</span><br><span class="line">    @Query(value =&quot;select *&quot; +</span><br><span class="line">            &quot;from user &quot; +</span><br><span class="line">            &quot;where user.id not in &quot; +</span><br><span class="line">            &quot;(select check_personal.user_id from check_personal)&quot; +</span><br><span class="line">            &quot; and user.department_id = :departmentId&quot;, nativeQuery = true)</span><br><span class="line">    List&lt;User&gt; findNotCheckUserByDepartmentId(@Param(&quot;departmentId&quot;) Long departmentId);</span><br></pre></td></tr></table></figure>
 <p>返回查询数据中的前多少条</p>
 <p><code>@Query(nativeQuery = true,value = &quot;SELECT  * FROM  sell WHERE sell.id &gt; :lastid  limit :number &quot;)</code></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://zhuchenshu.github.io/2018/05/11/spring-hebernate-数据查询/" data-id="cjijkqpfh000e1sv4rp38jpgu" class="article-share-link">分享</a>
+      <a data-url="http://zhuchenshu.github.io/2018/05/11/spring-hebernate-数据查询/" data-id="cjljidg0m000hp92h56hpkmzi" class="article-share-link">分享</a>
       
       
       
