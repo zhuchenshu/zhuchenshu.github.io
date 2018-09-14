@@ -3,20 +3,20 @@
 <head>
   <meta charset="utf-8">
   
-  <title>$state.go()与$state.transitionTo()的区别 | 晨澍的博客</title>
+  <title>数据库处理错误总结（一） | 晨澍的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="在完成跳转上级路由的时候，我发现项目中使用的是$state.transitionTo()，这与我之前所学的$state.go()有所不同，为此学习了一下他们两个的区别。">
-<meta name="keywords" content="angularjs">
+  <meta name="description" content="总结一下这周的大部分时间都在跟sql较劲，总结一下自己遇到的几个错误，温故知新。">
+<meta name="keywords" content="oracle">
 <meta property="og:type" content="article">
-<meta property="og:title" content="$state.go()与$state.transitionTo()的区别">
-<meta property="og:url" content="http://zhuchenshu.github.io/2018/06/01/go-与-transitionTo-的区别/index.html">
+<meta property="og:title" content="数据库处理错误总结（一）">
+<meta property="og:url" content="http://zhuchenshu.github.io/2018/09/14/数据库处理错误总结（一）/index.html">
 <meta property="og:site_name" content="晨澍的博客">
-<meta property="og:description" content="在完成跳转上级路由的时候，我发现项目中使用的是$state.transitionTo()，这与我之前所学的$state.go()有所不同，为此学习了一下他们两个的区别。">
+<meta property="og:description" content="总结一下这周的大部分时间都在跟sql较劲，总结一下自己遇到的几个错误，温故知新。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-06-02T04:00:04.000Z">
+<meta property="og:updated_time" content="2018-09-14T12:06:50.184Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="$state.go()与$state.transitionTo()的区别">
-<meta name="twitter:description" content="在完成跳转上级路由的时候，我发现项目中使用的是$state.transitionTo()，这与我之前所学的$state.go()有所不同，为此学习了一下他们两个的区别。">
+<meta name="twitter:title" content="数据库处理错误总结（一）">
+<meta name="twitter:description" content="总结一下这周的大部分时间都在跟sql较劲，总结一下自己遇到的几个错误，温故知新。">
   
     <link rel="alternate" href="/atom.xml" title="晨澍的博客" type="application/atom+xml">
   
@@ -73,10 +73,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-go-与-transitionTo-的区别" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-数据库处理错误总结（一）" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2018/06/01/go-与-transitionTo-的区别/" class="article-date">
-  <time datetime="2018-06-01T13:55:08.000Z" itemprop="datePublished">2018-06-01</time>
+    <a href="/2018/09/14/数据库处理错误总结（一）/" class="article-date">
+  <time datetime="2018-09-14T11:57:03.000Z" itemprop="datePublished">2018-09-14</time>
 </a>
     
   </div>
@@ -87,7 +87,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      $state.go()与$state.transitionTo()的区别
+      数据库处理错误总结（一）
     </h1>
   
 
@@ -97,26 +97,32 @@
       
         <!-- Table of Contents -->
         
-        <p>在完成跳转上级路由的时候，我发现项目中使用的是$state.transitionTo()，这与我之前所学的$state.go()有所不同，为此学习了一下他们两个的区别。</p>
+        <p>总结一下这周的大部分时间都在跟sql较劲，总结一下自己遇到的几个错误，温故知新。</p>
 <a id="more"></a>
 <!--more-->
-<p>先讲一下这两个的相同点：携带着参数和配置值等状态信息调转到指定路由。</p>
-<p>区别：为了方便，$state.go在内部调用了$state.transitionTointernally ，并且自动的添加了如下的配置参数<br>{ location: true, inherit: true, relative: $state.$current, notify: true }<br>方便你是要绝对路径或相对路径，并且配置相应的参数。</p>
-<p>同时官方推荐使用$state.go</p>
-<h3 id="state-go-to-toParams-options"><a href="#state-go-to-toParams-options" class="headerlink" title="$state.go(to [, toParams] [, options])"></a>$state.go(to [, toParams] [, options])</h3><h3 id="state-transitionTo-to-toParams-options"><a href="#state-transitionTo-to-toParams-options" class="headerlink" title="$state.transitionTo(to, toParams [, options])"></a>$state.transitionTo(to, toParams [, options])</h3><p>里面的三个参数分别是</p>
-<p>to: 跳转到的路由</p>
-<p>toParams：要携带的参数，存在$stateParams里面</p>
-<p>options：对象，配置相应的跳转状态如reload</p>
-<p><a href="https://github.com/angular-ui/ui-router/wiki/Quick-Reference#stategoto--toparams--options" target="_blank" rel="noopener">参考文档</a></p>
+<h3 id="Oracle-不是-SELECTed-表达式"><a href="#Oracle-不是-SELECTed-表达式" class="headerlink" title="Oracle 不是 SELECTed 表达式"></a>Oracle 不是 SELECTed 表达式</h3><p>错误原因：更改select中的数据原来为</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">select xxx,xxx,a.creat_date ...</span><br><span class="line">             order by a.creat_date</span><br></pre></td></tr></table></figure>
+<p>后来改为</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">          select xxx,xxx,</span><br><span class="line">to_char(a.create_date ,&apos;yyyy-MM-dd HH12:MI:SS&apos;) as create_date</span><br><span class="line">，...</span><br><span class="line">              order by a.creat_date</span><br></pre></td></tr></table></figure>
+<p>但没改order by里面的排序数据。</p>
+<p>在ORDER BY中指定多个列，结果将先按照子句中的第一列排序，然后第二个，依此类推。<br>在SELECT中未出现的列名也可用于ORDER BY 子句中，只要TABLE中有就行。<br>但如果SELECT子句中出现了DISTINCT关键字，则只能用出现过的列名，<br>而且如果SELECT子句中使用了任何运算符，在ORDER BY 子句中必须保持和SELECT子句中表达式完全一致，否则出现错误：“ORA-01791: 不是 SELECTed 表达式”。</p>
+<p>耗时长原因：</p>
+<pre><code>1. 对sql语句不熟悉
+2. 对错误不熟悉，遇到错误的时候，错误的认为是sql语句中的to_char使用错误，导致长时间的困在如何格式化数据上面。
+</code></pre><p>总结：遇到错误不能错误的猜测你错误的原因，要到网上查，确定错误的原因，不然会做很多的无用功，走错了方向真的越走错的越深。</p>
+<h3 id="在连接条件中加查询"><a href="#在连接条件中加查询" class="headerlink" title="在连接条件中加查询"></a>在连接条件中加查询</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">SELECT</span><br><span class="line">* </span><br><span class="line">FROM</span><br><span class="line">`klass`</span><br><span class="line">LEFT JOIN teacher ON klass.teacher_id = teacher.id </span><br><span class="line">AND klass.link = &apos;2&apos;</span><br></pre></td></tr></table></figure>
+<p>在左连接中筛选条件不应写在连接条件中，因为左连接会完整的带出所有的左表数据，后面的连接条件不会起作用，<br>错误的在连接条件中加入了筛选条件。</p>
+<h3 id="在sum函数里面加distinct"><a href="#在sum函数里面加distinct" class="headerlink" title="在sum函数里面加distinct"></a>在sum函数里面加distinct</h3><p>代码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">SUM ( distinct</span><br><span class="line">  CASE</span><br><span class="line">  WHEN xxxxx THEN</span><br><span class="line">  1</span><br><span class="line">  ELSE</span><br><span class="line">  0</span><br><span class="line">  END</span><br><span class="line">  )</span><br></pre></td></tr></table></figure></p>
+<p><code>distinct</code> 加上之后，会把所有的重复1给去掉，最后的结果就只有一个1，就错误的显示总共和为1了。</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://zhuchenshu.github.io/2018/06/01/go-与-transitionTo-的区别/" data-id="cjm1yjppl0006o72h6b5eykot" class="article-share-link">分享</a>
+      <a data-url="http://zhuchenshu.github.io/2018/09/14/数据库处理错误总结（一）/" data-id="cjm1yjpqb000vo72hiwxv7uo1" class="article-share-link">分享</a>
       
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/angularjs/">angularjs</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/oracle/">oracle</a></li></ul>
 
     </footer>
   </div>
@@ -166,19 +172,10 @@
     
 <nav id="article-nav">
   
-    <a href="/2018/06/01/ui-view的使用总结/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">上一篇</strong>
-      <div class="article-nav-title">
-        
-          ui-view的使用总结
-        
-      </div>
-    </a>
   
-  
-    <a href="/2018/05/23/Syntax-Error-unexpected-token/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2018/09/02/实习小结/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">下一篇</strong>
-      <div class="article-nav-title">Syntax Error: unexpected token &lt;</div>
+      <div class="article-nav-title">实习小结</div>
     </a>
   
 </nav>
@@ -216,7 +213,7 @@
       
         <strong class="toc-title">文章目录</strong>
         <div class="toc-widget-list">
-              <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#state-go-to-toParams-options"><span class="toc-number">1.</span> <span class="toc-text">$state.go(to [, toParams] [, options])</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#state-transitionTo-to-toParams-options"><span class="toc-number">2.</span> <span class="toc-text">$state.transitionTo(to, toParams [, options])</span></a></li></ol>
+              <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Oracle-不是-SELECTed-表达式"><span class="toc-number">1.</span> <span class="toc-text">Oracle 不是 SELECTed 表达式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#在连接条件中加查询"><span class="toc-number">2.</span> <span class="toc-text">在连接条件中加查询</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#在sum函数里面加distinct"><span class="toc-number">3.</span> <span class="toc-text">在sum函数里面加distinct</span></a></li></ol>
           </div>
       </div>
     </div>
