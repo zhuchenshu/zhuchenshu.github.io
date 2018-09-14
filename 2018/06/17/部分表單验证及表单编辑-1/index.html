@@ -13,15 +13,15 @@
 <meta property="og:site_name" content="晨澍的博客">
 <meta property="og:description" content="最近完成了部分的表单验证以及，在table中实现表单的编辑功能。在此记录自己的实现过程。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://zhuchenshu.github.io/2018/06/17/部分表單验证及表单编辑-1/001.png">
-<meta property="og:image" content="http://zhuchenshu.github.io/2018/06/17/部分表單验证及表单编辑-1/002.png">
-<meta property="og:image" content="http://zhuchenshu.github.io/2018/06/17/部分表單验证及表单编辑-1/003.png">
+<meta property="og:image" content="http://zhuchenshu.github.io/2018/06/17/部分表單验证及表单编辑-1/001.jpg">
+<meta property="og:image" content="http://zhuchenshu.github.io/2018/06/17/部分表單验证及表单编辑-1/002.jpg">
+<meta property="og:image" content="http://zhuchenshu.github.io/2018/06/17/部分表單验证及表单编辑-1/003.jpg">
 <meta property="og:image" content="http://zhuchenshu.github.io/2018/06/17/部分表單验证及表单编辑-1/004.png">
-<meta property="og:updated_time" content="2018-09-01T13:55:27.579Z">
+<meta property="og:updated_time" content="2018-09-14T12:27:53.478Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="部分表单验证及表单编辑记录">
 <meta name="twitter:description" content="最近完成了部分的表单验证以及，在table中实现表单的编辑功能。在此记录自己的实现过程。">
-<meta name="twitter:image" content="http://zhuchenshu.github.io/2018/06/17/部分表單验证及表单编辑-1/001.png">
+<meta name="twitter:image" content="http://zhuchenshu.github.io/2018/06/17/部分表單验证及表单编辑-1/001.jpg">
   
     <link rel="alternate" href="/atom.xml" title="晨澍的博客" type="application/atom+xml">
   
@@ -106,9 +106,9 @@
 <a id="more"></a>
 <!--more-->
 <h3 id="部分表单验证"><a href="#部分表单验证" class="headerlink" title="部分表单验证"></a>部分表单验证</h3><p>效果图如下：</p>
-<p><img src="/2018/06/17/部分表單验证及表单编辑-1/001.png" alt="验证001"></p>
-<p><img src="/2018/06/17/部分表單验证及表单编辑-1/002.png" alt="验证002"></p>
-<p><img src="/2018/06/17/部分表單验证及表单编辑-1/003.png" alt="验证003"></p>
+<p><img src="/2018/06/17/部分表單验证及表单编辑-1/001.jpg" alt="验证001"></p>
+<p><img src="/2018/06/17/部分表單验证及表单编辑-1/002.jpg" alt="验证002"></p>
+<p><img src="/2018/06/17/部分表單验证及表单编辑-1/003.jpg" alt="验证003"></p>
 <p>代码如下：</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"form-group"</span> <span class="attr">ng-if</span>=<span class="string">"data.parentMeasurementUnit.id"</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">label</span> <span class="attr">class</span>=<span class="string">"col-sm-4 control-label"</span>&gt;</span>相对于父计量单位的倍数<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"col-sm-8"</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">ng-disabled</span>=<span class="string">"disable"</span>  <span class="attr">ng-pattern</span>=<span class="string">"regex"</span> <span class="attr">ng-blur</span>=<span class="string">"line=true"</span> <span class="attr">class</span>=<span class="string">"form-control"</span> <span class="attr">placeholder</span>=<span class="string">"请输入倍数"</span> <span class="attr">ng-model</span>=<span class="string">"data.multipleOfParent"</span> <span class="attr">name</span>=<span class="string">"multipleOfParent"</span> <span class="attr">required</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"text-danger"</span> <span class="attr">ng-show</span>=<span class="string">"myForm.multipleOfParent.$error.pattern &amp;&amp; line"</span>&gt;</span>请输入正整数<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"m-t-xs"</span> <span class="attr">ng-show</span>=<span class="string">"myForm.multipleOfParent.$touched &amp;&amp; myForm.multipleOfParent.$invalid"</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"text-danger"</span> <span class="attr">ng-show</span>=<span class="string">"myForm.multipleOfParent.$error.required"</span>&gt;</span><span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">"fa fa-exclamation-triangle"</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span> 倍数是必须的。<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p>实现过程：<br>目的实现相关是想验证前一部分的表单，当之输入前一部分表单时，验证通过可以提交。<br>当后一部分表单触发后开始验证全局表单，全部填写完成后才可以提交。</p>
