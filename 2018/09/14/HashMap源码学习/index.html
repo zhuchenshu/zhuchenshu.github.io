@@ -13,10 +13,14 @@
 <meta property="og:site_name" content="晨澍的博客">
 <meta property="og:description" content="最近刷题遇到好多关于hashmap的，学习了一下源码，发现大牛们的设计，算法真的是无比优秀，作为菜鸟的我看都看不懂。简单写一下自己的粗浅的理解，等自己水平提提升了再做补充。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-09-14T12:28:54.879Z">
+<meta property="og:image" content="http://zhuchenshu.github.io/2018/09/14/HashMap源码学习/001.jpg">
+<meta property="og:image" content="http://zhuchenshu.github.io/2018/09/14/HashMap源码学习/002.jpg">
+<meta property="og:image" content="http://zhuchenshu.github.io/2018/09/14/HashMap源码学习/003.jpg">
+<meta property="og:updated_time" content="2018-09-14T12:31:12.008Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="HashMap源码学习">
 <meta name="twitter:description" content="最近刷题遇到好多关于hashmap的，学习了一下源码，发现大牛们的设计，算法真的是无比优秀，作为菜鸟的我看都看不懂。简单写一下自己的粗浅的理解，等自己水平提提升了再做补充。">
+<meta name="twitter:image" content="http://zhuchenshu.github.io/2018/09/14/HashMap源码学习/001.jpg">
   
     <link rel="alternate" href="/atom.xml" title="晨澍的博客" type="application/atom+xml">
   
@@ -101,11 +105,11 @@
 <a id="more"></a>
 <!--more-->
 <p>底层数据结构：<br>jdk1.7</p>
-<p><a href="001.jpg">jdk1.7</a></p>
+<p><img src="/2018/09/14/HashMap源码学习/001.jpg" alt="jdk1.7"></p>
 <p>jdk1.8</p>
-<p><a href="002.jpg">jdk1.8</a></p>
+<p><img src="/2018/09/14/HashMap源码学习/002.jpg" alt="jdk1.8"></p>
 <p>类结构：</p>
-<p><a href="003.jpg">类结构</a></p>
+<p><img src="/2018/09/14/HashMap源码学习/003.jpg" alt="类结构"></p>
 <p>大体结构：<br>（1）HashMap允许NULL值，NULL键<br>（2）不要轻易改变负载因子，负载因子过高会导致链表过长，查找键值对时间复杂度就会增高，负载因子过低会导致hash桶的数量过多，空间复杂度会增高<br>（3）Hash表每次会扩容长度为以前的2倍<br>（4）HashMap是多线程不安全的，我在JDK 1.7进行多线程put操作，之后遍历，直接死循环，CPU飙到100%，在JDK 1.8中<br>进行多线程操作会出现节点和value值丢失，为什么JDK1.7与JDK1.8多线程操作会出现很大不同，是因为JDK 1.8的作者对resize<br>方法进行了优化不会产生链表闭环。这也是本章的重点之一，具体的细节大家可以去查阅资料。这里我就不解释太多了<br>（5）尽量设置HashMap的初始容量，尤其在数据量大的时候，防止多次resize<br>（6）HashMap在JDK 1.8在做了很好性能的提升，我看到过在JDK1.7和JDK1.8get操作性能对比JDK1.8是要优于JDK 1.7的，大家感兴趣的可以自己做个测试，所以还没有升级到JDK1.8的小伙伴赶紧的吧。</p>
 
       
