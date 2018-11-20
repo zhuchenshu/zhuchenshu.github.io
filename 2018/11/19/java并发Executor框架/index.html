@@ -5,17 +5,17 @@
   
   <title>晨澍的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="title: java并发Executor框架date: 2018-11-19 20:37:19 tags: java之前一直觉得Java用Thread类和Runnable接口实现并发太简陋了，最近被问到几次并发的问题之后才发现，原来大牛们早就早好了轮子了，不过自己菜不知道而已。">
+  <meta name="description" content="title: java并发Executor框架date: 2018-11-19 20:37:19 tags: 之前一直觉得Java用Thread类和Runnable接口实现并发太简陋了，最近被问到几次并发的问题之后才发现，原来大牛们早就早好了轮子了，不过自己菜不知道而已。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="晨澍的博客">
 <meta property="og:url" content="http://zhuchenshu.github.io/2018/11/19/java并发Executor框架/index.html">
 <meta property="og:site_name" content="晨澍的博客">
-<meta property="og:description" content="title: java并发Executor框架date: 2018-11-19 20:37:19 tags: java之前一直觉得Java用Thread类和Runnable接口实现并发太简陋了，最近被问到几次并发的问题之后才发现，原来大牛们早就早好了轮子了，不过自己菜不知道而已。">
+<meta property="og:description" content="title: java并发Executor框架date: 2018-11-19 20:37:19 tags: 之前一直觉得Java用Thread类和Runnable接口实现并发太简陋了，最近被问到几次并发的问题之后才发现，原来大牛们早就早好了轮子了，不过自己菜不知道而已。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-11-19T13:31:19.608Z">
+<meta property="og:updated_time" content="2018-11-20T13:30:31.245Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="晨澍的博客">
-<meta name="twitter:description" content="title: java并发Executor框架date: 2018-11-19 20:37:19 tags: java之前一直觉得Java用Thread类和Runnable接口实现并发太简陋了，最近被问到几次并发的问题之后才发现，原来大牛们早就早好了轮子了，不过自己菜不知道而已。">
+<meta name="twitter:description" content="title: java并发Executor框架date: 2018-11-19 20:37:19 tags: 之前一直觉得Java用Thread类和Runnable接口实现并发太简陋了，最近被问到几次并发的问题之后才发现，原来大牛们早就早好了轮子了，不过自己菜不知道而已。">
   
     <link rel="alternate" href="/atom.xml" title="晨澍的博客" type="application/atom+xml">
   
@@ -88,7 +88,7 @@
         
         <hr>
 <p>title: java并发Executor框架<br>date: 2018-11-19 20:37:19</p>
-<h2 id="tags-java"><a href="#tags-java" class="headerlink" title="tags: java"></a>tags: java</h2><p>之前一直觉得Java用Thread类和Runnable接口实现并发太简陋了，最近被问到几次并发的问题之后才发现，原来大牛们早就早好了轮子了，不过自己菜不知道而已。</p>
+<h2 id="tags"><a href="#tags" class="headerlink" title="tags: "></a>tags: </h2><p>之前一直觉得Java用Thread类和Runnable接口实现并发太简陋了，最近被问到几次并发的问题之后才发现，原来大牛们早就早好了轮子了，不过自己菜不知道而已。</p>
 <a id="more"></a>
 <!--more-->
 <p>用法<br>Executor：一个接口，其定义了一个接收Runnable对象的方法executor，其方法签名为executor(Runnable command),</p>
@@ -96,26 +96,18 @@
 <p>先介绍一下ThreadPoolExecutor，这个方法,大体代码如下，下面介绍的几个工厂方法大体上都是从它演化过来的：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">ThreadPoolExecutor(int corePoolSize,	// 核心池数量</span><br><span class="line">                      int maximumPoolSize,	// 池中最大数量</span><br><span class="line">                      long keepAliveTime,	// 保持连接时间</span><br><span class="line">                      TimeUnit unit,		// 时间单位</span><br><span class="line">                      BlockingQueue&lt;Runnable&gt; workQueue,	// 等待对列</span><br><span class="line">                      ThreadFactory threadFactory,			 </span><br><span class="line">                      RejectedExecutionHandler handler)</span><br></pre></td></tr></table></figure>
 <p>总共有四种，举例并配合源码说一下：</p>
-<ol>
-<li><code>newCachedThreadPool()</code></li>
-</ol>
+<p>1.<code>newCachedThreadPool()</code></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">public static ExecutorService newCachedThreadPool(ThreadFactory threadFactory) &#123;</span><br><span class="line">        return new ThreadPoolExecutor(0, Integer.MAX_VALUE,</span><br><span class="line">                                      60L, TimeUnit.SECONDS,</span><br><span class="line">                                      new SynchronousQueue&lt;Runnable&gt;(),</span><br><span class="line">                                      threadFactory);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<ol>
-<li><code>newFixedThreadPool(int)</code></li>
-</ol>
+<p>2.<code>newFixedThreadPool(int)</code></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">public static ExecutorService newFixedThreadPool(int nThreads) &#123;</span><br><span class="line">        return new ThreadPoolExecutor(nThreads, nThreads,</span><br><span class="line">                                      0L, TimeUnit.MILLISECONDS,</span><br><span class="line">                                      new LinkedBlockingQueue&lt;Runnable&gt;());</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<ol>
-<li><code>newScheduledThreadPool(int)</code></li>
-</ol>
+<p>3.<code>newScheduledThreadPool(int)</code></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">public ScheduledThreadPoolExecutor(int corePoolSize) &#123;</span><br><span class="line">        super(corePoolSize, Integer.MAX_VALUE, 0, NANOSECONDS,</span><br><span class="line">              new DelayedWorkQueue());</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<ol>
-<li><code>SingleThreadExecutor()</code></li>
-</ol>
+<p>4.<code>SingleThreadExecutor()</code></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">public static ExecutorService newSingleThreadExecutor() &#123;</span><br><span class="line">        return new FinalizableDelegatedExecutorService</span><br><span class="line">            (new ThreadPoolExecutor(1, 1,</span><br><span class="line">                                    0L, TimeUnit.MILLISECONDS,</span><br><span class="line">                                    new LinkedBlockingQueue&lt;Runnable&gt;()));</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://zhuchenshu.github.io/2018/11/19/java并发Executor框架/" data-id="cjoocmnnh000cq12h6zkiw7ep" class="article-share-link">分享</a>
+      <a data-url="http://zhuchenshu.github.io/2018/11/19/java并发Executor框架/" data-id="cjoprxp69000chm2hgni6iqt6" class="article-share-link">分享</a>
       
       
       
@@ -208,7 +200,7 @@
       
         <strong class="toc-title">文章目录</strong>
         <div class="toc-widget-list">
-              <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#tags-java"><span class="toc-number">1.</span> <span class="toc-text">tags: java</span></a></li></ol>
+              <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#tags"><span class="toc-number">1.</span> <span class="toc-text">tags: </span></a></li></ol>
           </div>
       </div>
     </div>
